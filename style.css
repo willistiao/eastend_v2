@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, 
+body {
+    background: #F7F4F0;
+}
+
+main {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+}
+
+.scrollable {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    border: solid 1px blue;
+}
+
+ul.project-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    border: solid 1px red;
+}
+
+.list-item {
+    position: relative;
+    width: 100vw;
+    height: 100%;  
+    font-size: 2vw;
+    border: solid 1px green;
+}
+
+a {
+    text-decoration: none;  
+    color: #000000;
+}
+
+h1 {
+    font-family: 'Cormorant', serif;
+    font-weight: 400;
+}
+
