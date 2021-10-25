@@ -1,6 +1,12 @@
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('./fonts/Helvetica Neue Medium Extended.otf') format('opentype');
+}
+
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html, 
@@ -10,6 +16,8 @@ body {
 
 main {
     position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100%;
 }
@@ -17,6 +25,7 @@ main {
 .scrollable {
     position: absolute;
     width: 100%;
+    height: 2000px;
     top: 0;
     left: 0;
     will-change: transform;
@@ -26,10 +35,11 @@ main {
 ul.project-list {
     display: flex;
     flex-direction: column;
-    list-style: none;
-    width: 100%;
-    height: 100%;
     justify-content: space-between;
+    position: absolute;
+    list-style: none;
+    width: 90%;
+    height: 60%;
     border: solid 1px red;
 }
 
@@ -37,8 +47,14 @@ ul.project-list {
     position: relative;
     width: 100vw;
     height: 100%;  
-    font-size: 2vw;
+    font-size: 1.5rem;
     border: solid 1px green;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.list-item:hover {
+    opacity: 1 im !important;
 }
 
 a {
@@ -47,7 +63,7 @@ a {
 }
 
 h1 {
-    font-family: 'Cormorant', serif;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
     font-weight: 400;
 }
 
