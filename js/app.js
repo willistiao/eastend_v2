@@ -112,7 +112,6 @@ class Sketch {
         // READJUST DIMENSIONS ON WINDOW RESIZE
         window.addEventListener('resize', this.onWindowResize.bind(this));
 
-
         let fov = (180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective))) / Math.PI;
         this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspectRatio, 0.1, 1000);
 
@@ -146,7 +145,6 @@ class Sketch {
         requestAnimationFrame(this.render.bind(this));
     }
 }
-
 
 new Sketch();
 
