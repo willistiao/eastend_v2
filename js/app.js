@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import images from './images';
 
-
 const scrollable = document.querySelector('.scrollable');
 
 let target = 0;
