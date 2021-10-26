@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import images from './images';
-// import videos from './videos';
+import videos from './videos';
 import fragment from './shaders/fragment.glsl';
 import vertex from './shaders/vertex.glsl';
 
@@ -39,6 +39,7 @@ const textureThree = new THREE.TextureLoader().load(images.imageThree);
 const textureFour = new THREE.TextureLoader().load(images.imageFour);
 const textureFive = new THREE.TextureLoader().load(images.imageFive);
 const textureSix = new THREE.TextureLoader().load(images.imageSix);
+// const textureSeven = new THREE.VideoTexture().load(videos.imageSeven);
 
 class Sketch {
     constructor(){
@@ -73,6 +74,9 @@ class Sketch {
                         break;
                     case 5: 
                         this.uniforms.uTexture.value = textureSix;
+                        break;
+                    case 6: 
+                        this.uniforms.uTexture.value = textureSeven;
                         break;
                 }
             })

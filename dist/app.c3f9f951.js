@@ -36507,7 +36507,46 @@ var images = {
 };
 var _default = images;
 exports.default = _default;
-},{"../media/images/1.jpg":"media/images/1.jpg","../media/images/2.jpg":"media/images/2.jpg","../media/images/3.jpg":"media/images/3.jpg","../media/images/4.jpg":"media/images/4.jpg","../media/images/5.jpg":"media/images/5.jpg","../media/images/6.jpg":"media/images/6.jpg"}],"js/shaders/fragment.glsl":[function(require,module,exports) {
+},{"../media/images/1.jpg":"media/images/1.jpg","../media/images/2.jpg":"media/images/2.jpg","../media/images/3.jpg":"media/images/3.jpg","../media/images/4.jpg":"media/images/4.jpg","../media/images/5.jpg":"media/images/5.jpg","../media/images/6.jpg":"media/images/6.jpg"}],"media/videos/break_preview.mp4":[function(require,module,exports) {
+module.exports = "/break_preview.73b04629.mp4";
+},{}],"media/videos/brotherhood_preview.mp4":[function(require,module,exports) {
+module.exports = "/brotherhood_preview.a1e9ff18.mp4";
+},{}],"media/videos/dca_preview.mp4":[function(require,module,exports) {
+module.exports = "/dca_preview.aebcf016.mp4";
+},{}],"media/videos/draken_preview.mp4":[function(require,module,exports) {
+module.exports = "/draken_preview.1dbc604b.mp4";
+},{}],"media/videos/jean_dawson_preview.mp4":[function(require,module,exports) {
+module.exports = "/jean_dawson_preview.c02c7d62.mp4";
+},{}],"js/videos.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _break_preview = _interopRequireDefault(require("../media/videos/break_preview.mp4"));
+
+var _brotherhood_preview = _interopRequireDefault(require("../media/videos/brotherhood_preview.mp4"));
+
+var _dca_preview = _interopRequireDefault(require("../media/videos/dca_preview.mp4"));
+
+var _draken_preview = _interopRequireDefault(require("../media/videos/draken_preview.mp4"));
+
+var _jean_dawson_preview = _interopRequireDefault(require("../media/videos/jean_dawson_preview.mp4"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var videos = {
+  imageSeven: _break_preview.default,
+  imageEight: _brotherhood_preview.default,
+  imageNine: _dca_preview.default,
+  imageTen: _draken_preview.default,
+  imageEleven: _jean_dawson_preview.default
+};
+var _default = videos;
+exports.default = _default;
+},{"../media/videos/break_preview.mp4":"media/videos/break_preview.mp4","../media/videos/brotherhood_preview.mp4":"media/videos/brotherhood_preview.mp4","../media/videos/dca_preview.mp4":"media/videos/dca_preview.mp4","../media/videos/draken_preview.mp4":"media/videos/draken_preview.mp4","../media/videos/jean_dawson_preview.mp4":"media/videos/jean_dawson_preview.mp4"}],"js/shaders/fragment.glsl":[function(require,module,exports) {
 module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform float uAlpha;\nuniform vec2 uOffset;\nvarying vec2 vUv;\n\nvoid main(){\n    vec4 color = texture2D(uTexture, vUv);\n    gl_FragColor = color;\n}";
 },{}],"js/shaders/vertex.glsl":[function(require,module,exports) {
 module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform vec2 uOffset;\nvarying vec2 vUv;\n\nfloat M_PI = 3.141529;\n\nvec3 deformationCurve(vec3 position, vec2 uv, vec2 offset){\n    position.x = position.x + (sin(uv.y * M_PI) * offset.x);\n    position.y = position.y + (sin(uv.x * M_PI) * offset.y);\n    return position;\n}\n\nvoid main(){\n    vUv = uv;\n    vec3 newPosition = deformationCurve(position, uv, uOffset);\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);\n}";
@@ -36517,6 +36556,8 @@ module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform vec2 u
 var THREE = _interopRequireWildcard(require("three"));
 
 var _images = _interopRequireDefault(require("./images"));
+
+var _videos = _interopRequireDefault(require("./videos"));
 
 var _fragment = _interopRequireDefault(require("./shaders/fragment.glsl"));
 
@@ -36577,7 +36618,7 @@ var textureTwo = new THREE.TextureLoader().load(_images.default.imageTwo);
 var textureThree = new THREE.TextureLoader().load(_images.default.imageThree);
 var textureFour = new THREE.TextureLoader().load(_images.default.imageFour);
 var textureFive = new THREE.TextureLoader().load(_images.default.imageFive);
-var textureSix = new THREE.TextureLoader().load(_images.default.imageSix);
+var textureSix = new THREE.TextureLoader().load(_images.default.imageSix); // const textureSeven = new THREE.VideoTexture().load(videos.imageSeven);
 
 var Sketch = /*#__PURE__*/function () {
   function Sketch() {
@@ -36630,6 +36671,10 @@ var Sketch = /*#__PURE__*/function () {
 
           case 5:
             _this.uniforms.uTexture.value = textureSix;
+            break;
+
+          case 6:
+            _this.uniforms.uTexture.value = textureSeven;
             break;
         }
       });
@@ -36744,7 +36789,7 @@ var Sketch = /*#__PURE__*/function () {
 new Sketch();
 smoothScroll();
 init();
-},{"three":"node_modules/three/build/three.module.js","./images":"js/images.js","./shaders/fragment.glsl":"js/shaders/fragment.glsl","./shaders/vertex.glsl":"js/shaders/vertex.glsl"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","./images":"js/images.js","./videos":"js/videos.js","./shaders/fragment.glsl":"js/shaders/fragment.glsl","./shaders/vertex.glsl":"js/shaders/vertex.glsl"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -36772,7 +36817,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58838" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52577" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
