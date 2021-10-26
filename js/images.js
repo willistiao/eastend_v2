@@ -1,9 +1,9 @@
-import imageOne from '../images/1.jpg';
-import imageTwo from '../images/2.jpg';
-import imageThree from '../images/3.jpg';
-import imageFour from '../images/4.jpg';
-import imageFive from '../images/5.jpg';
-import imageSix from '../images/6.jpg';
+import imageOne from '../media/images/1.jpg';
+import imageTwo from '../media/images/2.jpg';
+import imageThree from '../media/images/3.jpg';
+import imageFour from '../media/images/4.jpg';
+import imageFive from '../media/images/5.jpg';
+import imageSix from '../media/images/6.jpg';
 
 const images = {
     imageOne,

@@ -36463,18 +36463,18 @@ if (typeof window !== 'undefined') {
     window.__THREE__ = REVISION;
   }
 }
-},{}],"images/1.jpg":[function(require,module,exports) {
-module.exports = "/1.106c6bd6.jpg";
-},{}],"images/2.jpg":[function(require,module,exports) {
-module.exports = "/2.adddeb7c.jpg";
-},{}],"images/3.jpg":[function(require,module,exports) {
-module.exports = "/3.993a564c.jpg";
-},{}],"images/4.jpg":[function(require,module,exports) {
-module.exports = "/4.d8cb7558.jpg";
-},{}],"images/5.jpg":[function(require,module,exports) {
-module.exports = "/5.044aff48.jpg";
-},{}],"images/6.jpg":[function(require,module,exports) {
-module.exports = "/6.9baee97f.jpg";
+},{}],"media/images/1.jpg":[function(require,module,exports) {
+module.exports = "/1.19a7e888.jpg";
+},{}],"media/images/2.jpg":[function(require,module,exports) {
+module.exports = "/2.811ec055.jpg";
+},{}],"media/images/3.jpg":[function(require,module,exports) {
+module.exports = "/3.3d3f1c47.jpg";
+},{}],"media/images/4.jpg":[function(require,module,exports) {
+module.exports = "/4.f982ddc2.jpg";
+},{}],"media/images/5.jpg":[function(require,module,exports) {
+module.exports = "/5.21c3fbad.jpg";
+},{}],"media/images/6.jpg":[function(require,module,exports) {
+module.exports = "/6.48f06175.jpg";
 },{}],"js/images.js":[function(require,module,exports) {
 "use strict";
 
@@ -36483,17 +36483,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ = _interopRequireDefault(require("../images/1.jpg"));
+var _ = _interopRequireDefault(require("../media/images/1.jpg"));
 
-var _2 = _interopRequireDefault(require("../images/2.jpg"));
+var _2 = _interopRequireDefault(require("../media/images/2.jpg"));
 
-var _3 = _interopRequireDefault(require("../images/3.jpg"));
+var _3 = _interopRequireDefault(require("../media/images/3.jpg"));
 
-var _4 = _interopRequireDefault(require("../images/4.jpg"));
+var _4 = _interopRequireDefault(require("../media/images/4.jpg"));
 
-var _5 = _interopRequireDefault(require("../images/5.jpg"));
+var _5 = _interopRequireDefault(require("../media/images/5.jpg"));
 
-var _6 = _interopRequireDefault(require("../images/6.jpg"));
+var _6 = _interopRequireDefault(require("../media/images/6.jpg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36507,18 +36507,28 @@ var images = {
 };
 var _default = images;
 exports.default = _default;
-},{"../images/1.jpg":"images/1.jpg","../images/2.jpg":"images/2.jpg","../images/3.jpg":"images/3.jpg","../images/4.jpg":"images/4.jpg","../images/5.jpg":"images/5.jpg","../images/6.jpg":"images/6.jpg"}],"js/app.js":[function(require,module,exports) {
+},{"../media/images/1.jpg":"media/images/1.jpg","../media/images/2.jpg":"media/images/2.jpg","../media/images/3.jpg":"media/images/3.jpg","../media/images/4.jpg":"media/images/4.jpg","../media/images/5.jpg":"media/images/5.jpg","../media/images/6.jpg":"media/images/6.jpg"}],"js/shaders/fragment.glsl":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform float uAlpha;\nuniform vec2 uOffset;\nvarying vec2 vUv;\n\nvoid main(){\n    vec4 color = texture2D(uTexture, vUv);\n    gl_FragColor = color;\n}";
+},{}],"js/shaders/vertex.glsl":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform vec2 uOffset;\nvarying vec2 vUv;\n\nfloat M_PI = 3.141529;\n\nvec3 deformationCurve(vec3 position, vec2 uv, vec2 offset){\n    position.x = position.x + (sin(uv.y * M_PI) * offset.x);\n    position.y = position.y + (sin(uv.x * M_PI) * offset.y);\n    return position;\n}\n\nvoid main(){\n    vUv = uv;\n    vec3 newPosition = deformationCurve(position, uv, uOffset);\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);\n}";
+},{}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
 
 var _images = _interopRequireDefault(require("./images"));
 
+var _fragment = _interopRequireDefault(require("./shaders/fragment.glsl"));
+
+var _vertex = _interopRequireDefault(require("./shaders/vertex.glsl"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -36657,10 +36667,10 @@ var Sketch = /*#__PURE__*/function () {
       var _this2 = this;
 
       element.addEventListener('mouseenter', function () {
-        _this2.linksHover = true;
+        _this2.linkHovered = true;
       });
       element.addEventListener('mouseleave', function () {
-        _this2.linksHover = false;
+        _this2.linkHovered = false;
       });
     }
   }, {
@@ -36669,7 +36679,8 @@ var Sketch = /*#__PURE__*/function () {
       // READJUST DIMENSIONS ON WINDOW RESIZE
       window.addEventListener('resize', this.onWindowResize.bind(this));
       var fov = 180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective)) / Math.PI;
-      this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspectRatio, 0.1, 1000); // Renderer / canvas
+      this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspectRatio, 0.1, 1000);
+      this.camera.position.set(0, 0, this.perspective); // Renderer / canvas
 
       this.renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -36691,10 +36702,13 @@ var Sketch = /*#__PURE__*/function () {
   }, {
     key: "createMesh",
     value: function createMesh() {
-      this.geometry = new THREE.PlaneGeometry(1, 1, 20, 20);
-      this.material = new THREE.MeshBasicMaterial({
-        color: 0xff0000
-      });
+      this.geometry = new THREE.PlaneGeometry(1, 1, 20, 20); // this.material = new THREE.MeshBasicMaterial({color: 0xff0000});
+
+      this.material = new THREE.ShaderMaterial(_defineProperty({
+        uniforms: this.uniforms,
+        vertexShader: _vertex.default,
+        fragmentShader: _fragment.default
+      }, "vertexShader", _vertex.default));
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.sizes.set(250, 350); // using vector2 defined in constructor
 
@@ -36705,6 +36719,20 @@ var Sketch = /*#__PURE__*/function () {
   }, {
     key: "render",
     value: function render() {
+      this.offset.x = lerp(this.offset.x, targetX, 0.1);
+      this.offset.y = lerp(this.offset.y, targetY, 0.1);
+      this.uniforms.uOffset.value.set((targetX - this.offset.x) * 0.0005, -(targetY - this.offset.y) * 0.0005);
+      this.mesh.position.set(this.offset.x - window.innerWidth / 2, -this.offset.y + window.innerHeight / 2);
+      this.linksHover ? this.uniforms.uAlpha.value = lerp(this.uniforms.uAlpha.value, 1.0, 0.1) : this.uniforms.uAlpha.value = lerp(this.uniforms.uAlpha.value, 0.0, 0.1);
+
+      for (var i = 0; i < this.links.length; i++) {
+        if (this.linksHover) {
+          this.links[i].style.opacity = 0.2;
+        } else {
+          this.links[i].style.opacity = 0.2;
+        }
+      }
+
       this.renderer.render(this.scene, this.camera);
       requestAnimationFrame(this.render.bind(this));
     }
@@ -36716,7 +36744,7 @@ var Sketch = /*#__PURE__*/function () {
 new Sketch();
 smoothScroll();
 init();
-},{"three":"node_modules/three/build/three.module.js","./images":"js/images.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","./images":"js/images.js","./shaders/fragment.glsl":"js/shaders/fragment.glsl","./shaders/vertex.glsl":"js/shaders/vertex.glsl"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -36744,7 +36772,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59266" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58838" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -36920,5 +36948,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/app.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/app.js"], null)
 //# sourceMappingURL=/app.c3f9f951.js.map

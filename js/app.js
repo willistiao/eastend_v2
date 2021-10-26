@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 import images from './images';
+// import videos from './videos';
+import fragment from './shaders/fragment.glsl';
+import vertex from './shaders/vertex.glsl';
+
 
 const scrollable = document.querySelector('.scrollable');
 
@@ -101,10 +105,10 @@ class Sketch {
 
     addEventListeners(element){
         element.addEventListener('mouseenter', () => {
-            this.linksHover = true;            
+            this.linkHovered = true;
         })
         element.addEventListener('mouseleave', () => {
-            this.linksHover = false;
+            this.linkHovered = false;
         })
     }
 
@@ -114,6 +118,7 @@ class Sketch {
 
         let fov = (180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective))) / Math.PI;
         this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspectRatio, 0.1, 1000);
+        this.camera.position.set(0, 0, this.perspective);
 
         // Renderer / canvas
         this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
@@ -131,7 +136,13 @@ class Sketch {
 
     createMesh(){
         this.geometry = new THREE.PlaneGeometry(1, 1, 20, 20);
-        this.material = new THREE.MeshBasicMaterial({color: 0xff0000});
+        // this.material = new THREE.MeshBasicMaterial({color: 0xff0000});
+        this.material = new THREE.ShaderMaterial({
+            uniforms: this.uniforms,
+            vertexShader: vertex,
+            fragmentShader: fragment,
+            vertexShader: vertex
+        })
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.sizes.set(250, 350); // using vector2 defined in constructor
@@ -141,6 +152,23 @@ class Sketch {
     }
 
     render(){
+        this.offset.x = lerp(this.offset.x, targetX, 0.1);
+        this.offset.y = lerp(this.offset.y, targetY, 0.1);
+        this.uniforms.uOffset.value.set((targetX - this.offset.x) * 0.0005, -(targetY - this.offset.y) * 0.0005);
+        this.mesh.position.set(this.offset.x - (window.innerWidth / 2), -this.offset.y + (window.innerHeight / 2));
+
+        this.linksHover
+        ? this.uniforms.uAlpha.value = lerp(this.uniforms.uAlpha.value, 1.0, 0.1)
+        : this.uniforms.uAlpha.value = lerp(this.uniforms.uAlpha.value, 0.0, 0.1)
+
+        for(let i = 0; i < this.links.length; i++){
+            if(this.linksHover){
+                this.links[i].style.opacity = 0.2;
+            } else {
+                this.links[i].style.opacity = 0.2;
+            }
+        }
+
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
     }
